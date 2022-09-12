@@ -25,10 +25,7 @@ from sklearn.pipeline import make_pipeline
 
 
 def generate_uuids(n):
-    ride_ids = []
-    for i in range(n):
-        ride_ids.append(str(uuid.uuid4()))
-    return ride_ids
+    return [str(uuid.uuid4()) for _ in range(n)]
 
 
 def read_dataframe(filename: str):
@@ -46,19 +43,17 @@ def read_dataframe(filename: str):
 def prepare_dictionaries(df: pd.DataFrame):
     categorical = ['PULocationID', 'DOLocationID']
     df[categorical] = df[categorical].astype(str)
-    
+
     df['PU_DO'] = df['PULocationID'] + '_' + df['DOLocationID']
 
     categorical = ['PU_DO']
     numerical = ['trip_distance']
-    dicts = df[categorical + numerical].to_dict(orient='records')
-    return dicts
+    return df[categorical + numerical].to_dict(orient='records')
 
 
 def load_model(run_id):
     logged_model = f's3://mlflow-models-alexey/1/{run_id}/artifacts/model'
-    model = mlflow.pyfunc.load_model(logged_model)
-    return model
+    return mlflow.pyfunc.load_model(logged_model)
 
 
 def save_results(df, y_pred, run_id, output_file):
@@ -86,7 +81,7 @@ def apply_model(input_file, run_id, output_file):
     logger.info(f'loading the model with RUN_ID={run_id}...')
     model = load_model(run_id)
 
-    logger.info(f'applying the model...')
+    logger.info('applying the model...')
     y_pred = model.predict(dicts)
 
     logger.info(f'saving the result to {output_file}...')

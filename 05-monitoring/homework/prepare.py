@@ -3,7 +3,7 @@ import requests
 
 files = ["green_tripdata_2021-03.parquet", "green_tripdata_2021-04.parquet", "green_tripdata_2021-05.parquet"]
 path = "./datasets"
-print(f"Download files:")
+print("Download files:")
 for file in files:
 
     # Change the url based on what works for you whether s3 or cloudfront

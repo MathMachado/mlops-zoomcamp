@@ -19,7 +19,7 @@ def read_dataframe(filename):
 
     categorical = ['PULocationID', 'DOLocationID']
     df[categorical] = df[categorical].astype(str)
-    
+
     return df
 
 def add_features(train_data="./datasets/green_tripdata_2021-03.parquet",

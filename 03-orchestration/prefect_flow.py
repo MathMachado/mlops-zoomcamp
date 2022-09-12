@@ -27,7 +27,7 @@ def read_dataframe(filename):
 
     categorical = ['PULocationID', 'DOLocationID']
     df[categorical] = df[categorical].astype(str)
-    
+
     return df
 
 @task

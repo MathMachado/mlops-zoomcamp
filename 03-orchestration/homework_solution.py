@@ -10,8 +10,7 @@ import pickle
 
 @task
 def read_data(path):
-    df = pd.read_parquet(path)
-    return df
+    return pd.read_parquet(path)
 
 @task
 def prepare_features(df, categorical, train=True):
@@ -65,7 +64,7 @@ def get_paths(date):
     if date:
         processed_date = datetime.strptime(date, "%Y-%m-%d")
     else:
-        processed_date = datetime.today()
+        processed_date = datetime.now()
     train_date = processed_date - relativedelta(months=2)
     val_date = processed_date - relativedelta(months=1)
     train_path = f"./data/fhv_tripdata_{train_date.year}-{str(train_date.month).zfill(2)}.parquet"

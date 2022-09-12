@@ -29,10 +29,10 @@ def prepare_features(ride):
     """Function to prepare features before making prediction"""
 
     record = ride.copy()
-    record['PU_DO'] = '%s_%s' % (record['PULocationID'], record['DOLocationID'])
+    record['PU_DO'] = f"{record['PULocationID']}_{record['DOLocationID']}"
 
     features = dv.transform([record])
-   
+
     return features, record
 
 
@@ -48,7 +48,7 @@ def save_db(record, pred_result):
 @app.route("/", methods=["GET"])
 def get_info():
     """Function to provide info about the app"""
-    info = """<H1>Ride Prediction Service</H1>
+    return """<H1>Ride Prediction Service</H1>
               <div class="Data Request"> 
                 <H3>Data Request Example</H3> 
                 <div class="data">
@@ -60,7 +60,6 @@ def get_info():
                 </p>
                 </div>    
                </div>"""
-    return info
 
 @app.route("/predict-duration", methods=["POST"])
 def predict_duration():
