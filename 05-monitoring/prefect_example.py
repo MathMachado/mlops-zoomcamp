@@ -21,7 +21,7 @@ def upload_target(filename):
     client = MongoClient("mongodb://localhost:27018/")
     collection = client.get_database("prediction_service").get_collection("data")
     with open(filename) as f_target:
-        for line in f_target.readlines():
+        for line in f_target:
             row = line.split(",")
             collection.update_one({"id": row[0]}, {"$set": {"target": float(row[1])}})
     client.close()
@@ -50,8 +50,7 @@ def load_reference_data(filename):
 def fetch_data():
     client = MongoClient("mongodb://localhost:27018/")
     data = client.get_database("prediction_service").get_collection("data").find()
-    df = pandas.DataFrame(list(data))
-    return df
+    return pandas.DataFrame(list(data))
 
 
 @task

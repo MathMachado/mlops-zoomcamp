@@ -29,10 +29,7 @@ def preprocess(df: pd.DataFrame, dv: DictVectorizer, fit_dv: bool = False):
     categorical = ['PU_DO']
     numerical = ['trip_distance']
     dicts = df[categorical + numerical].to_dict(orient='records')
-    if fit_dv:
-        X = dv.fit_transform(dicts)
-    else:
-        X = dv.transform(dicts)
+    X = dv.fit_transform(dicts) if fit_dv else dv.transform(dicts)
     return X, dv
 
 

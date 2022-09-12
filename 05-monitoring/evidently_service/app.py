@@ -129,7 +129,10 @@ class MonitoringService:
 
         if current_size > self.window_size:
             # cut current_size by window size value
-            current_data.drop(index=list(range(0, current_size - self.window_size)), inplace=True)
+            current_data.drop(
+                index=list(range(current_size - self.window_size)), inplace=True
+            )
+
             current_data.reset_index(drop=True, inplace=True)
 
         self.current[dataset_name] = current_data

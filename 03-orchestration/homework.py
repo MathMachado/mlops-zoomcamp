@@ -5,8 +5,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
 def read_data(path):
-    df = pd.read_parquet(path)
-    return df
+    return pd.read_parquet(path)
 
 def prepare_features(df, categorical, train=True):
     df['duration'] = df.dropOff_datetime - df.pickup_datetime

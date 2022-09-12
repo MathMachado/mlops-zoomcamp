@@ -28,7 +28,7 @@ collection = db.get_collection("data")
 def predict():
     record = request.get_json()
 
-    record['PU_DO'] = '%s_%s' % (record['PULocationID'], record['DOLocationID'])
+    record['PU_DO'] = f"{record['PULocationID']}_{record['DOLocationID']}"
 
     X = dv.transform([record])
     y_pred = model.predict(X)
